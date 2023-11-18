@@ -48,7 +48,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolderLeft
             holder.layout.setGravity(Gravity.RIGHT);
             holder.tvContent.setText(chat.getAdminRep());
             holder.tvTime.setText(chat.getTime());
-                holder.layout2.setBackgroundColor(0xFF2BB7F4);
+            holder.layout2.setBackgroundColor(0xFF2BB7F4);
         }else{
             holder.layout.setGravity(Gravity.LEFT);
             holder.tvContent.setText(chat.getContent());

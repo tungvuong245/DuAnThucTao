@@ -215,57 +215,6 @@
                             app:layout_constraintTop_toBottomOf="@id/tv_order_statistics"
                             app:layout_constraintVertical_bias="0.1" />
 
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/ic_financial_overview"
-                            android:layout_width="@dimen/dimen_40dp"
-                            android:layout_height="@dimen/dimen_40dp"
-                            android:layout_marginTop="@dimen/dimen_20dp"
-                            android:layout_marginBottom="@dimen/dimen_5dp"
-                            app:cardBackgroundColor="#FCC3A3"
-                            app:cardCornerRadius="@dimen/dimen_360dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.05"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/icLine2"
-                            app:layout_constraintVertical_bias="1">
-
-                            <ImageView
-                                android:layout_width="@dimen/dimen_20dp"
-                                android:layout_height="@dimen/dimen_20dp"
-                                android:layout_gravity="center"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/ic_analytics_2" />
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:id="@+id/tv_financial_overview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Đơn hàng chưa thanh toán"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/dimen_18dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.07"
-                            app:layout_constraintStart_toEndOf="@+id/ic_financial_overview"
-                            app:layout_constraintTop_toBottomOf="@+id/icLine2"
-                            app:layout_constraintVertical_bias="0.8" />
-
-                        <ImageView
-                            android:id="@+id/ic_next_financial_overview"
-                            android:layout_width="@dimen/dimen_30dp"
-                            android:layout_height="@dimen/dimen_30dp"
-                            android:layout_marginTop="@dimen/dimen_25dp"
-                            android:src="@drawable/ic_next"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-
-                            app:layout_constraintHorizontal_bias="0.97"
-                            app:layout_constraintStart_toEndOf="@+id/tv_order_statistics"
-                            app:layout_constraintTop_toBottomOf="@+id/icLine2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -281,6 +230,7 @@
                     app:cardElevation="@dimen/dimen_5dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btnChatToUser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/dimen_8dp"
