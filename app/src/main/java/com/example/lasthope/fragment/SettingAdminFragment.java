@@ -66,11 +66,11 @@ public class SettingAdminFragment extends BaseFragment {
         binding.icNextOrderStatistics.setOnClickListener(v -> {
             replaceFragment(StatisticalFragment.newInstance());
         });
-        binding.icNextFinancialOverview.setOnClickListener(v->{
-            replaceFragment(FragmentListChatUser.newInstance());
-        });
         binding.btnLogout.setOnClickListener(v->{
             startActivity(new Intent(getContext(), LoginActivity.class));
+        });
+        binding.btnChatToUser.setOnClickListener(v->{
+            replaceFragment(FragmentListChatUser.newInstance());
         });
 
     }

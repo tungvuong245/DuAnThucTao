@@ -1,6 +1,7 @@
 package com.example.lasthope.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.example.lasthope.databinding.ItemChatRightBinding;
 import com.example.lasthope.databinding.LayoutItemBannerBinding;
 import com.example.lasthope.model.Chat;
 import com.example.lasthope.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,7 +49,14 @@ public class ChatToUserAdapter extends RecyclerView.Adapter<ChatToUserAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolderLeft holder, int position) {
         Chat chat = list.get(position);
-        chat.setSeen(true);
+        Chat chat1 = new Chat(chat.getContent(),chat.getId(),chat.getUser(),true,chat.getTime(),chat.getAdminRep());
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("chat/"+chat.getUser().getId());
+        reference1.child(chat.getId()).setValue(chat1).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.e("TAG", "onComplete: " );
+            }
+        });
         if(chat.getAdminRep().equals("")){
             holder.layout.setGravity(Gravity.RIGHT);
             holder.tvContent.setText(chat.getContent());

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +60,10 @@ public class AddToCartFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.btnBack.setOnClickListener(v->{
+            backStack();
+        });
+
     }
 
     @Override
@@ -91,10 +96,15 @@ public class AddToCartFragment extends BaseFragment {
             });
         }
         binding.btnThem.setOnClickListener(v->{
-            soluong++;
-            binding.tvSoluong.setText(soluong+"");
-            double price = soluong*dataProduct.getPrice();
-            binding.tvPrice.setText(price+"");
+            if(dataProduct.getSoLuong()>soluong){
+                soluong++;
+                binding.tvSoluong.setText(soluong+"");
+                double price = soluong*dataProduct.getPrice();
+                binding.tvPrice.setText(price+"");
+            }else {
+                Toast.makeText(getContext(), "San pham " +dataProduct.getNameProduct()+" khong du so luong", Toast.LENGTH_SHORT).show();
+            }
+
         });
         String idU = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Date date = Calendar.getInstance().getTime();
@@ -117,7 +127,6 @@ public class AddToCartFragment extends BaseFragment {
 
     @Override
     public void listening() {
-
 
 
     }

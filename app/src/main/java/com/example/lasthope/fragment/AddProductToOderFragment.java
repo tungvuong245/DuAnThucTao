@@ -1,6 +1,7 @@
 package com.example.lasthope.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -92,7 +93,7 @@ public class AddProductToOderFragment extends BaseFragment implements OnClickCar
             }
         });
         toOderArrayList = new ArrayList<>();
-        GetCart();
+        GetCart(getContext());
         binding.icEditAddress.setOnClickListener(v->{
             replaceFragment(new UpdateUserFragment().newInstance(user));
         });
@@ -114,7 +115,7 @@ public class AddProductToOderFragment extends BaseFragment implements OnClickCar
     @Override
     public void initView() {
     }
-    private void GetCart(){
+    private void GetCart(Context context){
         String idU = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("list_oder/"+idU);
         reference.addValueEventListener(new ValueEventListener() {
@@ -149,20 +150,40 @@ public class AddProductToOderFragment extends BaseFragment implements OnClickCar
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                reference1.child(key).setValue(receipt, new DatabaseReference.CompletionListener() {
-                                    @Override
-                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                        Log.e("TAG", "onComplete: them vao bill " );
-                                        reference.removeValue(new DatabaseReference.CompletionListener() {
-                                            @Override
-                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                Log.e("TAG", "onComplete: remove  " );
-                                                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                    }
-                                });
+
+                                for(ProductToOder productToOder1 : receipt.getListPoduct()){
+
+                                    DatabaseReference referenceProduct = FirebaseDatabase.getInstance().getReference("list_product/"+productToOder1.getIdP());
+                                    referenceProduct.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                                            Product product = task.getResult().getValue(Product.class);
+                                            Product product1 = new Product(product.getId(),product.getNameProduct(),product.getSoLuong()-productToOder1.getSoLuong(),product.getDescribe(),product.getTypeProduct(),product.getPrice(),product.getNote(),true);
+                                                referenceProduct.setValue(product1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Log.e("TAG", "onComplete: 333" );
+                                                        reference1.child(key).setValue(receipt, new DatabaseReference.CompletionListener() {
+                                                            @Override
+                                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                                Log.e("TAG", "onComplete: them vao bill " );
+                                                                reference.removeValue(new DatabaseReference.CompletionListener() {
+                                                                    @Override
+                                                                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                                        Log.e("TAG", "onComplete: remove  " );
+                                                                        Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                        }
+                                    });
+                                }
                             }
+
                         });
 
                         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

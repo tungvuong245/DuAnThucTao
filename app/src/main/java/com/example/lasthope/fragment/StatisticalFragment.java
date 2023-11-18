@@ -45,7 +45,7 @@ public class StatisticalFragment extends BaseFragment implements ListOderAdapter
     private int lastSelectedMonth;
     private int lastSelectedDayOfMonth;
     private Receipt receipt;
-    private Double doanhthu = Double.valueOf(0);
+    private Double doanhthu = 0.0;
     private  ArrayList<Receipt> listReceipt;
     public StatisticalFragment() {
         // Required empty public constructor

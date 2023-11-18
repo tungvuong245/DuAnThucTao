@@ -245,7 +245,7 @@ public class UpdateProductFragment extends BaseFragment {
                 binding.edDescribe.setText(dataProduct.getDescribe());
                 binding.edPrice.setText(String.format("%.0f", dataProduct.getPrice()));
                 binding.edNote.setText(dataProduct.getNote());
-
+                binding.edSoluong.setText(dataProduct.getSoLuong()+"");
                 listTypeProduct = new ArrayList<>();
                 DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("list_type_product");
                 mRef.addValueEventListener(new ValueEventListener() {

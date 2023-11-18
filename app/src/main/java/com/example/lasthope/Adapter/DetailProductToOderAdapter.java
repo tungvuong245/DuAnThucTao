@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,13 +19,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.lasthope.base.OnClickCart;
 import com.example.lasthope.databinding.LayoutItemDetailOderProductBinding;
+import com.example.lasthope.model.Product;
 import com.example.lasthope.model.ProductToOder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -92,61 +96,79 @@ public class DetailProductToOderAdapter extends RecyclerView.Adapter<DetailProdu
         }
 
         void initData(ProductToOder product, Context context,ArrayList<ProductToOder>list,int position) {
-            soluong= product.getSoLuong() ;
-            StorageReference reference = FirebaseStorage.getInstance().getReference().child("imgProducts");
-            reference.listAll().addOnSuccessListener(listResult -> {
-                for (StorageReference files: listResult.getItems()){
-                    if(files.getName().equals(product.getIdP())){
-                        files.getDownloadUrl().addOnSuccessListener(uri -> {
-                            Log.e("Load anh", "initData: " );
-                            Glide.with(context).load(uri).into(imgProduct);
-                        });
-                    }
-                }
-            });
-            tvName.setText(product.getNameProduct());
-            Locale locale = new Locale("en","EN");
-            NumberFormat numberFormat = NumberFormat.getInstance(locale);
-            Double price = product.getPrice()*product.getSoLuong();
-            String strPrice = numberFormat.format(price);
-            tvPrice.setText(strPrice +"đ");
-            tvDescribe.setText(product.getNote());
-            tv_soluong.setText(product.getSoLuong()+"");
-
-            layoutItem.setOnClickListener(v->{
-                onClickCart.onClick(product);
-            });
-            btnThem.setOnClickListener(new View.OnClickListener() {
+            DatabaseReference referenceProduct = FirebaseDatabase.getInstance().getReference("list_product");
+            referenceProduct.child(product.getIdP()).addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onClick(View view) {
-                    soluong++;
-                    tv_soluong.setText(soluong+"");
-                    tvPrice.setText((soluong*product.getPrice())+"");
-                    ProductToOder product1 = new ProductToOder(product.getId(),product.getIdP(),product.getNameProduct(),product.getPrice(),soluong,product.getTypeProduct(),product.getNote(),product.getTime());
-                    ChangeCart(product1);
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Product product1 = snapshot.getValue(Product.class);
+                    soluong= product.getSoLuong() ;
+                    StorageReference reference = FirebaseStorage.getInstance().getReference().child("imgProducts");
+                    reference.listAll().addOnSuccessListener(listResult -> {
+                        for (StorageReference files: listResult.getItems()){
+                            if(files.getName().equals(product.getIdP())){
+                                files.getDownloadUrl().addOnSuccessListener(uri -> {
+                                    Log.e("Load anh", "initData: " );
+                                    Glide.with(context).load(uri).into(imgProduct);
+                                });
+                            }
+                        }
+                    });
+                    tvName.setText(product.getNameProduct());
+                    Locale locale = new Locale("en","EN");
+                    NumberFormat numberFormat = NumberFormat.getInstance(locale);
+                    Double price = product.getPrice()*product.getSoLuong();
+                    String strPrice = numberFormat.format(price);
+                    tvPrice.setText(strPrice +"đ");
+                    tvDescribe.setText(product.getNote());
+                    tv_soluong.setText(product.getSoLuong()+"");
+
+                    layoutItem.setOnClickListener(v->{
+                        onClickCart.onClick(product);
+                    });
+                    btnThem.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(product1.getSoLuong()>soluong){
+                                soluong++;
+                                tv_soluong.setText(soluong+"");
+                                tvPrice.setText((soluong*product.getPrice())+"");
+                                ProductToOder product1 = new ProductToOder(product.getId(),product.getIdP(),product.getNameProduct(),product.getPrice(),soluong,product.getTypeProduct(),product.getNote(),product.getTime());
+                                ChangeCart(product1);
+                            }else{
+                                Toast.makeText(context, "San pham "+product.getNameProduct()+" khong du", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+
+                    btnGiam.setOnClickListener(v->{
+                        soluong--;
+                        if(soluong>0){
+                            tv_soluong.setText(soluong+"");
+                            ProductToOder productToOder = new ProductToOder(product.getId(),product.getIdP(),product.getNameProduct(),product.getPrice(),soluong,product.getTypeProduct(),product.getNote(),product.getTime());
+                            ChangeCart(productToOder);
+                        }else{
+                            list.remove(position);
+                            String idU = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("list_oder/"+idU+"/"+product.getId());
+                            reference1.removeValue(new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    Log.e("TAG", "onComplete: " );
+                                }
+                            });
+                            notifyDataSetChanged();
+                        }
+
+                    });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
 
-                btnGiam.setOnClickListener(v->{
-                    soluong--;
-                    if(soluong>=0){
-                        tv_soluong.setText(soluong+"");
-                        ProductToOder product1 = new ProductToOder(product.getId(),product.getIdP(),product.getNameProduct(),product.getPrice(),soluong,product.getTypeProduct(),product.getNote(),product.getTime());
-                        ChangeCart(product1);
-                    }else{
-                        list.remove(position);
-                        String idU = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("list_oder/"+idU+"/"+product.getId());
-                        reference1.removeValue(new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                Log.e("TAG", "onComplete: " );
-                            }
-                        });
-                        notifyDataSetChanged();
-                    }
-
-                });
 
 
         }

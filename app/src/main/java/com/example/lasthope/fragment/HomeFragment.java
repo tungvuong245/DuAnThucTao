@@ -83,16 +83,21 @@ public class HomeFragment extends BaseFragment implements OnclickOptionMenu {
         binding.btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 replaceFragment(ListOderFragment.newInstance());
             }
-        }
+        });
+        binding.btnCart.setOnClickListener(v->{
+            replaceFragment(AddProductToOderFragment.newInstance());
 
-        );
+        });
+        binding.btnChat.setOnClickListener(v->{
+            replaceFragment(new ChatToAdminFragment().newInstance());
+        });
         binding.btnProduct.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.e("replace", "onClick: " );
                         replaceFragment(ProductFragment.newInstance());
                     }
                 }
