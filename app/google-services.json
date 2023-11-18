@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "129924985125",
+    "firebase_url": "https://newapp-8008a-default-rtdb.firebaseio.com",
+    "project_id": "newapp-8008a",
+    "storage_bucket": "newapp-8008a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129924985125:android:2f01eac560793332d2eacc",
+        "android_client_info": {
+          "package_name": "com.example.FoodManager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehu8GDfDrzJAW1saunoj6NueqqxsGWn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129924985125:android:a4a45a636a5c9365d2eacc",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehu8GDfDrzJAW1saunoj6NueqqxsGWn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129924985125:android:62161d5f51a00fa9d2eacc",
+        "android_client_info": {
+          "package_name": "com.example.foodmanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehu8GDfDrzJAW1saunoj6NueqqxsGWn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129924985125:android:da213834da6c43efd2eacc",
+        "android_client_info": {
+          "package_name": "com.example.kelineyt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehu8GDfDrzJAW1saunoj6NueqqxsGWn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129924985125:android:c98e4e23380b2615d2eacc",
+        "android_client_info": {
+          "package_name": "com.example.lasthope"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCehu8GDfDrzJAW1saunoj6NueqqxsGWn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

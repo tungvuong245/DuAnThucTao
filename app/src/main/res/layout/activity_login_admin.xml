@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="@drawable/bg_login">
+    <LinearLayout
+        android:id="@+id/layoutLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/ic_back"
+            android:layout_width="@dimen/dimen_30dp"
+            android:layout_height="@dimen/dimen_30dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginVertical="@dimen/dimen_10dp"
+            android:layout_marginHorizontal="@dimen/dimen_17dp"
+            />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_40dp"
+            android:layout_marginBottom="@dimen/dimen_30dp">
+
+            <TextView
+                android:id="@+id/tvIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="@dimen/dimen_15dp"
+                android:fontFamily="@font/leoscar_serif"
+                android:text=" Login Admin "
+                android:textColor="@color/brown_250"
+                android:textSize="@dimen/dimen_30dp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+
+
+        <EditText
+            android:id="@+id/email"
+            style="@style/styleEditTextLogin"
+            android:layout_marginHorizontal="@dimen/dimen_30dp"
+            android:drawableStart="@drawable/ic_email"
+            android:inputType="textEmailAddress"
+            android:hint="@string/sign_in_text_hint_email"
+            android:elevation="@dimen/dimen_10dp"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPassword"
+            style="@style/styleTilEditTextLogin"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                style="@style/styleEditTextLogin"
+                android:drawableStart="@drawable/ic_password"
+                android:inputType="textPassword"
+                android:background="@android:color/transparent"
+                android:hint="@string/sign_in_text_hint_pass"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cavButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_50dp"
+            app:cardBackgroundColor="@color/brown_500"
+            app:cardElevation="@dimen/dimen_8dp">
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in_text_button"
+                android:textAllCaps="false"
+                android:paddingHorizontal="@dimen/dimen_40dp"
+                android:background="@drawable/custom_button_login"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textSize="@dimen/dimen_20dp"
+                android:textColor="@color/black"
+                />
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar.Large.Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.55"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
